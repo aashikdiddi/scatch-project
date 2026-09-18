@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Orders | Scatch</title>
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="premium-navbar">
+
+        <a href="/owners/admin" class="premium-logo">
+            SCATCH
+        </a>
+
+        <div class="premium-nav-links">
+
+            <a href="/owners/admin">
+                Products
+            </a>
+
+            <a href="/owners/orders" class="active">
+                Orders
+            </a>
+
+            <a href="/users/logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="admin-orders-container">
+
+        <div class="admin-orders-header">
+
+            <div>
+
+                <p class="premium-label">
+                    STORE MANAGEMENT
+                </p>
+
+                <h1>
+                    Customer Orders
+                </h1>
+
+                <p>
+                    Manage and track all customer orders.
+                </p>
+
+            </div>
+
+            <div class="admin-order-count">
+
+                <span>
+                    Total Orders
+                </span>
+
+                <strong>
+                    <%= orders.length %>
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <% if (orders.length === 0) { %>
+
+            <div class="premium-empty-cart">
+
+                <div class="empty-cart-icon">
+                    📦
+                </div>
+
+                <h2>
+                    No Orders Yet
+                </h2>
+
+                <p>
+                    Customer orders will appear here.
+                </p>
+
+            </div>
+
+        <% } else { %>
+
+
+            <div class="admin-orders-list">
+
+
+                <% orders.forEach(function(order) { %>
+
+
+                    <div class="admin-order-card">
+
+
+                        <!-- ORDER HEADER -->
+
+                        <div class="admin-order-top">
+
+                            <div>
+
+                                <p class="order-label">
+                                    ORDER ID
+                                </p>
+
+                                <h2>
+                                    #<%= order._id.toString().slice(-8).toUpperCase() %>
+                                </h2>
+
+                            </div>
+
+
+                            <div class="admin-order-date">
+
+                                <span>
+                                    Order Date
+                                </span>
+
+                                <strong>
+                                    <%= new Date(order.orderDate).toLocaleDateString("en-IN") %>
+                                </strong>
+
+                            </div>
+
+
+                            <span class="order-status">
+                                <%= order.status %>
+                            </span>
+
+                        </div>
+
+
+                        <!-- CUSTOMER -->
+
+                        <div class="admin-customer">
+
+                            <p class="admin-section-label">
+                                CUSTOMER
+                            </p>
+
+                            <h3>
+                                <%= order.user.fullname %>
+                            </h3>
+
+                            <p>
+                                <%= order.user.email %>
+                            </p>
+
+                        </div>
+
+
+                        <!-- PRODUCTS -->
+
+                        <div class="admin-products">
+
+                            <p class="admin-section-label">
+                                PRODUCTS
+                            </p>
+
+
+                            <% order.products.forEach(function(item) { %>
+
+
+                                <div class="admin-product-row">
+
+
+                                    <div class="admin-product-image">
+
+                                        <img
+                                            src="/products/image/<%= item.product._id %>"
+                                            alt="<%= item.product.name %>"
+                                        >
+
+                                    </div>
+
+
+                                    <div class="admin-product-info">
+
+                                        <h3>
+                                            <%= item.product.name %>
+                                        </h3>
+
+                                        <p>
+                                            Quantity: <%= item.quantity %>
+                                        </p>
+
+                                    </div>
+
+
+                                    <div class="admin-product-price">
+
+                                        ₹<%= Number(item.price) * Number(item.quantity) %>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            <% }) %>
+
+                        </div>
+
+
+                        <!-- FOOTER -->
+
+                        <div class="admin-order-footer">
+
+
+                            <div>
+
+                                <span>
+                                    Total Amount
+                                </span>
+
+                                <strong class="admin-total">
+                                    ₹<%= order.totalAmount %>
+                                </strong>
+
+                            </div>
+
+
+                            <!-- STATUS -->
+
+                            <form
+                                action="/owners/orders/status/<%= order._id %>"
+                                method="POST"
+                                class="status-form"
+                            >
+
+                                <label>
+                                    Order Status
+                                </label>
+
+                                <select name="status">
+
+                                    <option
+                                        value="Pending"
+                                        <%= order.status === "Pending" ? "selected" : "" %>
+                                    >
+                                        Pending
+                                    </option>
+
+                                    <option
+                                        value="Processing"
+                                        <%= order.status === "Processing" ? "selected" : "" %>
+                                    >
+                                        Processing
+                                    </option>
+
+                                    <option
+                                        value="Shipped"
+                                        <%= order.status === "Shipped" ? "selected" : "" %>
+                                    >
+                                        Shipped
+                                    </option>
+
+                                    <option
+                                        value="Delivered"
+                                        <%= order.status === "Delivered" ? "selected" : "" %>
+                                    >
+                                        Delivered
+                                    </option>
+
+                                </select>
+
+
+                                <button type="submit">
+                                    Update Status
+                                </button>
+
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                <% }) %>
+
+
+            </div>
+
+
+        <% } %>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="premium-footer">
+
+        <div>
+
+            <h2>
+                SCATCH
+            </h2>
+
+            <p>
+                Style that speaks for you.
+            </p>
+
+        </div>
+
+        <p class="footer-copy">
+            © 2026 Scatch. All rights reserved.
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

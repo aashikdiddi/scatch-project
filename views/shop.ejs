@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scatch - Shop</title>
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="shop-navbar">
+
+        <div class="brand">
+            <h1>Scatch</h1>
+        </div>
+
+        <div class="shop-nav-links">
+
+            <a href="/users/shop">
+                Shop
+            </a>
+
+            <a href="/owners/admin">
+                Admin
+            </a>
+
+            <a href="/users/logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Hero Section -->
+
+    <section class="shop-hero">
+
+        <div class="hero-content">
+
+            <p class="hero-small">
+                WELCOME TO SCATCH
+            </p>
+
+            <h2>
+                Discover Your<br>
+                <span>Perfect Style</span>
+            </h2>
+
+            <p>
+                Explore our latest collection and find products
+                made for your everyday style.
+            </p>
+
+            <a href="#products" class="shop-now-btn">
+                Shop Now
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Products -->
+
+    <main class="shop-container" id="products">
+
+        <div class="shop-heading">
+
+            <div>
+
+                <p class="section-label">
+                    OUR COLLECTION
+                </p>
+
+                <h2>
+                    Latest Products
+                </h2>
+
+            </div>
+
+            <p class="product-count">
+                <%= products.length %> Products
+            </p>
+
+        </div>
+
+
+        <% if (products.length === 0) { %>
+
+            <div class="shop-empty">
+
+                <h3>
+                    No Products Available
+                </h3>
+
+                <p>
+                    New products will appear here soon.
+                </p>
+
+            </div>
+
+        <% } else { %>
+
+
+            <div class="shop-product-grid">
+
+                <% products.forEach(function(product) { %>
+
+                    <div class="shop-product-card">
+
+
+                        <!-- Image -->
+
+                        <div class="shop-product-image">
+
+                            <img
+                                src="/products/image/<%= product._id %>"
+                                alt="<%= product.name %>"
+                            >
+
+                            <% if (product.discount > 0) { %>
+
+                                <span class="discount-badge">
+                                    <%= product.discount %>% OFF
+                                </span>
+
+                            <% } %>
+
+                        </div>
+
+
+                        <!-- Details -->
+
+                        <div class="shop-product-details">
+
+                            <p class="product-category">
+                                SCATCH COLLECTION
+                            </p>
+
+                            <h3>
+                                <%= product.name %>
+                            </h3>
+
+
+                            <div class="shop-price">
+
+                                <span class="current-price">
+                                    ₹<%= product.price %>
+                                </span>
+
+                                <% if (product.discount > 0) { %>
+
+                                    <span class="old-price">
+                                        ₹<%= Math.round(
+                                            product.price /
+                                            (1 - product.discount / 100)
+                                        ) %>
+                                    </span>
+
+                                <% } %>
+
+                            </div>
+
+                             <a
+   
+                             href="/users/addtocart/<%= product._id %>"
+                             class="add-cart-btn">
+                             Add to Cart
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                <% }) %>
+
+            </div>
+
+        <% } %>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer class="shop-footer">
+
+        <h2>Scatch</h2>
+
+        <p>
+            Style that speaks for you.
+        </p>
+
+        <p class="copyright">
+            © 2026 Scatch. All rights reserved.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
+

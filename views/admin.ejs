@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <nav class="navbar">
+
+        <h1>Scatch</h1>
+
+        <div class="nav-links">
+
+            <a href="/owners/admin">
+                Dashboard
+            </a>
+
+            <a href="/users/logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Dashboard -->
+
+    <main class="dashboard">
+
+        <!-- Dashboard Header -->
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <h2>Admin Dashboard</h2>
+
+                <p>
+                    Manage your products and store.
+                </p>
+
+            </div>
+
+            <a href="/owners/create-product"
+               class="create-btn">
+
+                + Create Product
+
+            </a>
+
+        </div>
+
+
+        <!-- Success Message -->
+
+        <% if (success && success.length > 0) { %>
+
+            <div class="success-message">
+
+                <%= success[0] %>
+
+            </div>
+
+        <% } %>
+
+
+        <!-- Products Section -->
+
+        <section class="products-section">
+
+            <h3>
+                Products
+            </h3>
+
+
+            <% if (products.length === 0) { %>
+
+                <!-- No Products -->
+
+                <div class="empty-products">
+
+                    <h4>
+                        No products to display
+                    </h4>
+
+                    <p>
+                        Create your first product to see it here.
+                    </p>
+
+                    <a href="/owners/create-product"
+                       class="create-btn">
+
+                        Create Product
+
+                    </a>
+
+                </div>
+
+
+            <% } else { %>
+
+
+                <!-- Product Grid -->
+
+                <div class="product-grid">
+
+                    <% products.forEach(function(product) { %>
+
+
+                        <!-- Product Card -->
+
+                        <div class="product-card">
+
+
+                            <!-- Product Image -->
+
+                            <div class="product-image">
+
+                                <img
+                                    src="/products/image/<%= product._id %>"
+                                    alt="<%= product.name %>"
+                                >
+
+                            </div>
+
+
+                            <!-- Product Information -->
+
+                            <div class="product-info">
+
+                                <h4>
+                                    <%= product.name %>
+                                </h4>
+
+
+                                <p class="price">
+                                    ₹<%= product.price %>
+                                </p>
+
+
+                                <p class="discount">
+                                    Discount:
+                                    <%= product.discount || 0 %>%
+                                </p>
+
+
+                                <!-- Actions -->
+
+                                <div class="product-actions">
+
+
+                                    <!-- Edit -->
+
+                                    <a
+                                        href="/products/edit/<%= product._id %>"
+                                        class="edit-btn"
+                                    >
+                                        Edit
+                                    </a>
+
+
+                                    <!-- Delete -->
+
+                                    <form
+                                        action="/products/delete/<%= product._id %>"
+                                        method="POST"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="delete-btn"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    <% }) %>
+
+                </div>
+
+
+            <% } %>
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

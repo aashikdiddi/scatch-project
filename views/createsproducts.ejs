@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Product</title>
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <h1>Scatch</h1>
+
+        <a href="/owners/admin">Admin</a>
+    </nav>
+
+    <main class="container">
+
+        <h2>Create Product</h2>
+
+        <p class="subtitle">
+            Add a new product to your store.
+        </p>
+
+        <% if (success && success.length > 0) { %>
+
+            <div class="success-message">
+                <%= success[0] %>
+            </div>
+
+        <% } %>
+
+        <form action="/products/create"
+              method="POST"
+              enctype="multipart/form-data"
+              class="product-form">
+
+            <div class="form-group">
+                <label>Product Image</label>
+
+                <input
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Product Name</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter product name"
+                    required
+                >
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label>Price</label>
+
+                    <input
+                        type="number"
+                        name="price"
+                        placeholder="Enter price"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Discount</label>
+
+                    <input
+                        type="number"
+                        name="discount"
+                        placeholder="Enter discount"
+                        value="0"
+                    >
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label>Background Color</label>
+
+                    <input
+                        type="text"
+                        name="bgcolor"
+                        placeholder="#ffffff"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Panel Color</label>
+
+                    <input
+                        type="text"
+                        name="panelcolor"
+                        placeholder="#000000"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label>Text Color</label>
+
+                    <input
+                        type="text"
+                        name="textcolor"
+                        placeholder="#ffffff"
+                        required
+                    >
+                </div>
+
+            </div>
+
+            <button type="submit">
+                Create Product
+            </button>
+
+        </form>
+
+    </main>
+
+</body>
+
+</html>
+```

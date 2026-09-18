@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Scatch</title>
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+</head>
+
+<body>
+
+    <nav class="premium-navbar">
+
+        <a href="/users/shop" class="premium-logo">
+            SCATCH
+        </a>
+
+        <div class="premium-nav-links">
+
+            <!-- <a href="/users/shop">
+                Shop
+            </a> -->
+
+            <a href="/users/register">
+                Register
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+            <p class="premium-label">
+                WELCOME BACK
+            </p>
+
+            <h1>
+                Login
+            </h1>
+
+            <p class="auth-subtitle">
+                Login to your Scatch account and continue shopping.
+            </p>
+
+
+            <form action="/users/login" method="POST">
+
+                <div class="auth-input-group">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="auth-input-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="auth-submit-btn"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <p class="auth-bottom-text">
+
+                Don't have an account?
+
+                <a href="/users/register">
+                    Create Account
+                </a>
+
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <footer class="premium-footer">
+
+        <div>
+
+            <h2>
+                SCATCH
+            </h2>
+
+            <p>
+                Style that speaks for you.
+            </p>
+
+        </div>
+
+        <p class="footer-copy">
+            © 2026 Scatch. All rights reserved.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scatch - Cart</title>
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="premium-navbar">
+
+        <a href="/users/shop" class="premium-logo">
+            SCATCH
+        </a>
+
+        <div class="premium-nav-links">
+
+            <a href="/users/shop">
+                Shop
+            </a>
+
+            <a href="/users/cart" class="active">
+                Cart
+            </a>
+
+            <a href="/users/logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CART CONTAINER -->
+
+    <main class="premium-cart-container">
+
+
+        <!-- HEADER -->
+
+        <div class="premium-cart-header">
+
+            <div>
+
+                <p class="premium-label">
+                    YOUR SHOPPING BAG
+                </p>
+
+                <h1>
+                    Shopping Cart
+                </h1>
+
+                <p>
+                    Review your items before checkout.
+                </p>
+
+            </div>
+
+
+            <a href="/users/shop" class="continue-shopping">
+                ← Continue Shopping
+            </a>
+
+        </div>
+
+
+        <% if (products.length === 0) { %>
+
+
+            <!-- EMPTY CART -->
+
+            <div class="premium-empty-cart">
+
+                <div class="empty-cart-icon">
+                    🛒
+                </div>
+
+                <h2>
+                    Your Cart is Empty
+                </h2>
+
+                <p>
+                    You haven't added any products yet.
+                </p>
+
+                <a href="/users/shop" class="premium-primary-btn">
+                    Start Shopping
+                </a>
+
+            </div>
+
+
+        <% } else { %>
+
+
+            <!-- CART LAYOUT -->
+
+            <div class="premium-cart-layout">
+
+
+                <!-- LEFT SIDE -->
+
+                <div class="premium-cart-items">
+
+
+                    <div class="cart-items-top">
+
+                        <h2>
+                            Your Items
+                        </h2>
+
+                        <span>
+                            <%= products.length %> item(s)
+                        </span>
+
+                    </div>
+
+
+                    <% products.forEach(function(item) { %>
+
+
+                        <!-- CART ITEM -->
+
+                        <div class="premium-cart-item">
+
+
+                            <!-- IMAGE -->
+
+                            <div class="premium-cart-image">
+
+                                <img
+                                    src="/products/image/<%= item.product._id %>"
+                                    alt="<%= item.product.name %>"
+                                >
+
+                                <% if (item.product.discount > 0) { %>
+
+                                    <span class="premium-discount">
+                                        <%= item.product.discount %>% OFF
+                                    </span>
+
+                                <% } %>
+
+                            </div>
+
+
+                            <!-- PRODUCT INFO -->
+
+                            <div class="premium-cart-info">
+
+                                <p class="premium-product-type">
+                                    SCATCH COLLECTION
+                                </p>
+
+                                <h3>
+                                    <%= item.product.name %>
+                                </h3>
+
+                                <p class="premium-product-description">
+                                    Premium product from the Scatch collection.
+                                </p>
+
+
+                                <div class="premium-item-bottom">
+
+
+                                    <!-- PRICE -->
+
+                                    <div class="premium-item-price">
+
+                                        ₹<%= item.product.price %>
+
+                                    </div>
+
+
+                                    <!-- QUANTITY -->
+
+                                    <div class="premium-quantity">
+
+                                       <a
+                                         href="/users/decreasequantity/<%= item.product._id %>"
+                                          class="quantity-btn"
+>
+                                            −
+                                        </a>
+
+                                        <span>
+                                            <%= item.quantity %>
+                                        </span>
+
+                                         <a
+                                          href="/users/increasequantity/<%= item.product._id %>"
+                                           class="quantity-btn"
+>
+                                            +
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- REMOVE -->
+
+                            <a
+                                href="/users/removefromcart/<%= item.product._id %>"
+                                class="premium-remove"
+                                title="Remove product"
+                            >
+                                ×
+                            </a>
+
+
+                        </div>
+
+
+                    <% }) %>
+
+
+                </div>
+
+
+                <!-- RIGHT SIDE SUMMARY -->
+
+                <div class="premium-summary">
+
+
+                    <div class="summary-title">
+
+                        <h2>
+                            Order Summary
+                        </h2>
+
+                        <span>
+                            <%= products.length %>
+                        </span>
+
+                    </div>
+
+
+                    <!-- ITEMS -->
+
+                    <div class="premium-summary-line">
+
+                        <span>
+                            Items
+                        </span>
+
+                        <strong>
+                            <%= products.length %>
+                        </strong>
+
+                    </div>
+
+
+                    <!-- SUBTOTAL -->
+
+                    <div class="premium-summary-line">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong>
+
+                            ₹<%= products.reduce(function(total, item) {
+                                return total +
+                                    (Number(item.product.price) * Number(item.quantity));
+                            }, 0) %>
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- DELIVERY -->
+
+                    <div class="premium-summary-line">
+
+                        <span>
+                            Delivery
+                        </span>
+
+                        <span class="free">
+                            FREE
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-divider"></div>
+
+
+                    <!-- TOTAL -->
+
+                    <div class="premium-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong>
+
+                            ₹<%= products.reduce(function(total, item) {
+                                return total +
+                                    (Number(item.product.price) * Number(item.quantity));
+                            }, 0) %>
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- CHECKOUT -->
+
+                    <a
+                      href="/users/placeorder"
+                      class="premium-checkout"
+>
+                      <span>→</span>
+                      Place Order
+                    </a>
+
+
+                    <p class="secure-checkout">
+                        🔒 Secure checkout
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        <% } %>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="premium-footer">
+
+        <div>
+
+            <h2>
+                SCATCH
+            </h2>
+
+            <p>
+                Style that speaks for you.
+            </p>
+
+        </div>
+
+
+        <p class="footer-copy">
+            © 2026 Scatch. All rights reserved.
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

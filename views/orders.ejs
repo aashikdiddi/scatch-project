@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders | Scatch</title>
+
+    <link rel="stylesheet" href="/css/stylesheet.css">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="premium-navbar">
+
+        <a href="/users/shop" class="premium-logo">
+            SCATCH
+        </a>
+
+        <div class="premium-nav-links">
+
+            <a href="/users/shop">
+                Shop
+            </a>
+
+            <a href="/users/cart">
+                Cart
+            </a>
+
+            <a href="/users/orders" class="active">
+                Orders
+            </a>
+
+            <a href="/users/logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ORDERS -->
+
+    <main class="orders-container">
+
+        <div class="orders-header">
+
+            <div>
+
+                <p class="premium-label">
+                    YOUR PURCHASES
+                </p>
+
+                <h1>
+                    My Orders
+                </h1>
+
+                <p>
+                    Track and review your previous orders.
+                </p>
+
+            </div>
+
+            <a href="/users/shop" class="continue-shopping">
+                ← Continue Shopping
+            </a>
+
+        </div>
+
+
+        <% if (orders.length === 0) { %>
+
+            <div class="premium-empty-cart">
+
+                <div class="empty-cart-icon">
+                    📦
+                </div>
+
+                <h2>
+                    No Orders Yet
+                </h2>
+
+                <p>
+                    Your placed orders will appear here.
+                </p>
+
+                <a href="/users/shop" class="premium-primary-btn">
+                    Start Shopping
+                </a>
+
+            </div>
+
+        <% } else { %>
+
+
+            <div class="orders-list">
+
+                <% orders.forEach(function(order) { %>
+
+                    <div class="order-card">
+
+                        <div class="order-card-header">
+
+                            <div>
+
+                                <p class="order-label">
+                                    ORDER
+                                </p>
+
+                                <h2>
+                                    #<%= order._id.toString().slice(-8).toUpperCase() %>
+                                </h2>
+
+                            </div>
+
+                            <span class="order-status">
+                                <%= order.status %>
+                            </span>
+
+                        </div>
+
+
+                        <div class="order-products">
+
+                            <% order.products.forEach(function(item) { %>
+
+                                <div class="order-product">
+
+                                    <div class="order-product-image">
+
+                                        <img
+                                            src="/products/image/<%= item.product._id %>"
+                                            alt="<%= item.product.name %>"
+                                        >
+
+                                    </div>
+
+                                    <div class="order-product-info">
+
+                                        <h3>
+                                            <%= item.product.name %>
+                                        </h3>
+
+                                        <p>
+                                            Quantity: <%= item.quantity %>
+                                        </p>
+
+                                    </div>
+
+                                    <div class="order-product-price">
+
+                                        ₹<%= Number(item.price) * Number(item.quantity) %>
+
+                                    </div>
+
+                                </div>
+
+                            <% }) %>
+
+                        </div>
+
+
+                        <div class="order-card-footer">
+
+                            <div>
+
+                                <span>
+                                    Order Date
+                                </span>
+
+                                <strong>
+                                    <%= new Date(order.orderDate).toLocaleDateString("en-IN") %>
+                                </strong>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Total
+                                </span>
+
+                                <strong class="order-total">
+                                    ₹<%= order.totalAmount %>
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <% }) %>
+
+            </div>
+
+
+        <% } %>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="premium-footer">
+
+        <div>
+
+            <h2>
+                SCATCH
+            </h2>
+
+            <p>
+                Style that speaks for you.
+            </p>
+
+        </div>
+
+        <p class="footer-copy">
+            © 2026 Scatch. All rights reserved.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
