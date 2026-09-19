@@ -1,20 +1,19 @@
-const mongoose = require('mongoose');
-const config = require("config");
 
 
-const dbgr = require("debug")("development:mongoose");  // $env:DEBUG="development:*"output ke liye terminal me ye propt chalavo
 
+const mongoose = require("mongoose");
+
+const dbgr = require("debug")("development:mongoose");
 
 mongoose
-.connect(`${config.get("MONGODB_URI")}/scatch`)
-.then(function(){
-    dbgr("connected");                                  
-})
-.catch(function(err){
-    dbgr(err);
-})
-
+    .connect(process.env.MONGODB_URI)
+    .then(function () {
+        dbgr("connected");
+        console.log("MongoDB connected successfully");
+    })
+    .catch(function (err) {
+        dbgr(err);
+        console.log("MongoDB connection error:", err.message);
+    });
 
 module.exports = mongoose.connection;
-
-
