@@ -45,6 +45,8 @@ app.get("/", function(req, res) {
     res.render("login");
 });
 
+
+
 app.use("/owners", ownersRouter);
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
